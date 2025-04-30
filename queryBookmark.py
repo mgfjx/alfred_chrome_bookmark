@@ -12,6 +12,18 @@ def query_data(name_keyword, url_keyword):
     db = sqlite3.connect(db_path)
 
     query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{name_keyword}%' OR url LIKE '%{url_keyword}%' OR path LIKE '%{name_keyword}%' OR pinyin LIKE '%{name_keyword}%'"
+    # 如果是以#开头，则只查询path
+    if name_keyword.startswith("#"):
+        name_keyword = name_keyword[1:]
+        # 使用空格分隔
+        keywords = name_keyword.split(" ")
+        if len(keywords) > 1 and len(keywords[1]) > 0:
+            path = keywords[0]
+            keword = keywords[1]
+            # 查询path下name为keyword或url为keyword的数据
+            query_data_sql = f"SELECT * FROM bookmark WHERE (path LIKE '%{path}%' OR pathpinyin LIKE '%{path}%') AND (name LIKE '%{keword}%' OR url LIKE '%{keword}%' OR pinyin LIKE '%{keword}%')"
+        else:
+            query_data_sql = f"SELECT * FROM bookmark WHERE path LIKE '%{name_keyword}%' OR pathpinyin LIKE '%{name_keyword}%'"
     rows = db.execute(query_data_sql).fetchall()
     db.close()
     return rows
@@ -21,7 +33,7 @@ def getAlfredItems(keywork):
     # 构建Alfred结果列表
     alfred_items = []
     for row in result:
-        title, path, url, adddate, pinyin = row
+        title, path, url, adddate, pinyin, pathpinyin = row
         title = f'[{path}]{title}'
         subtitle = f'[收藏时间:{adddate}]{url}'
         alfred_item = {
