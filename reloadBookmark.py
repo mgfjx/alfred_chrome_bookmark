@@ -48,6 +48,8 @@ def process_bookmark_node(node, path=''):
     if node_type == "folder":
         children = node.get('children', [])
         current_path = os.path.join(path, name) if path else name
+        if name == 'lsj':
+            return []
         for child in children:
             bookmark_list.extend(process_bookmark_node(child, current_path))
     else:

@@ -11,7 +11,7 @@ def query_data(name_keyword, url_keyword):
     db_path = os.path.expanduser(db_path)
     db = sqlite3.connect(db_path)
 
-    query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{name_keyword}%' OR url LIKE '%{url_keyword}%' OR path LIKE '%{name_keyword}%' OR pinyin LIKE '%{name_keyword}%'"
+    query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{name_keyword}%' OR url LIKE '%{url_keyword}%' OR path LIKE '%{name_keyword}%' OR pinyin LIKE '%{name_keyword}%' order by adddate desc"
     # 如果是以#开头，则只查询path
     if name_keyword.startswith("#"):
         name_keyword = name_keyword[1:]
@@ -21,9 +21,9 @@ def query_data(name_keyword, url_keyword):
             path = keywords[0]
             keword = keywords[1]
             # 查询path下name为keyword或url为keyword的数据
-            query_data_sql = f"SELECT * FROM bookmark WHERE (path LIKE '%{path}%' OR pathpinyin LIKE '%{path}%') AND (name LIKE '%{keword}%' OR url LIKE '%{keword}%' OR pinyin LIKE '%{keword}%')"
+            query_data_sql = f"SELECT * FROM bookmark WHERE (path LIKE '%{path}%' OR pathpinyin LIKE '%{path}%') AND (name LIKE '%{keword}%' OR url LIKE '%{keword}%' OR pinyin LIKE '%{keword}%') order by adddate desc"
         else:
-            query_data_sql = f"SELECT * FROM bookmark WHERE path LIKE '%{name_keyword}%' OR pathpinyin LIKE '%{name_keyword}%'"
+            query_data_sql = f"SELECT * FROM bookmark WHERE path LIKE '%{name_keyword}%' OR pathpinyin LIKE '%{name_keyword}%' order by adddate desc"
     rows = db.execute(query_data_sql).fetchall()
     db.close()
     return rows
