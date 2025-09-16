@@ -11,7 +11,21 @@ def query_data(name_keyword, url_keyword):
     db_path = os.path.expanduser(db_path)
     db = sqlite3.connect(db_path)
 
-    query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{name_keyword}%' OR url LIKE '%{url_keyword}%' OR path LIKE '%{name_keyword}%' OR pinyin LIKE '%{name_keyword}%' order by adddate desc"
+    keywords = [k.strip() for k in name_keyword.split()] if name_keyword else []
+    keywords = [k for k in keywords if k]  # 移除空字符串
+
+    # 2. 构建 name_conditions（每个关键字在三个字段中匹配）
+    name_conditions = []
+    for k in keywords:
+        # 转义单引号防止 SQL 注入（简易处理，建议使用参数化查询）
+        safe_k = k.replace("'", "''")
+        cond = f"(name LIKE '%{safe_k}%' OR path LIKE '%{safe_k}%' OR pinyin LIKE '%{safe_k}%')"
+        name_conditions.append(cond)
+
+    # 3. 组合 name_conditions（AND 连接）
+    name_conditions_str = " AND ".join(name_conditions) if name_conditions else "1=1"
+
+    query_data_sql = f"SELECT * FROM bookmark WHERE ({name_conditions_str}) OR url LIKE '%{url_keyword}%' order by adddate desc"
     # 如果是以#开头，则只查询path
     if name_keyword.startswith("#"):
         name_keyword = name_keyword[1:]
