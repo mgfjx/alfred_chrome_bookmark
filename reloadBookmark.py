@@ -92,8 +92,9 @@ def get_bookmark_list(json_obj):
     mobile_sync = roots.get('synced', {})
     mobile_bookmark_list = process_bookmark_node(mobile_sync)
     # 合并两个列表
-    bookmark_list = bookmark_list + mobile_bookmark_list
-    create_database(bookmark_list)
+    all_bookmark_list = bookmark_list + mobile_bookmark_list
+    create_database(all_bookmark_list)
+    print(f"共有{len(all_bookmark_list)}个书签, 其中电脑书签: {len(bookmark_list)}个, 移动书签: {len(mobile_bookmark_list)}个.")
 
 if __name__ == '__main__':
     reload_bookmark(lambda data: get_bookmark_list(data))

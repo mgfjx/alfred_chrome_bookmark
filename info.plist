@@ -19,6 +19,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>680CEC3D-B7D6-4694-9218-7B48E5C5D875</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>0EF97BF8-41A7-46B5-9758-E140C8489F85</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>AE5688DE-23C5-4559-9C9C-1E822A247891</key>
 		<array>
 			<dict>
@@ -90,6 +103,37 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<false/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>38</integer>
+				<key>hotmod</key>
+				<integer>1179648</integer>
+				<key>hotstring</key>
+				<string>J</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>AEE47B82-D8C0-4DAA-BA7C-3869564E6990</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -141,37 +185,6 @@ python3 ./queryBookmark.py "$query"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>action</key>
-				<integer>0</integer>
-				<key>argument</key>
-				<integer>0</integer>
-				<key>focusedappvariable</key>
-				<false/>
-				<key>focusedappvariablename</key>
-				<string></string>
-				<key>hotkey</key>
-				<integer>38</integer>
-				<key>hotmod</key>
-				<integer>1179648</integer>
-				<key>hotstring</key>
-				<string>J</string>
-				<key>leftcursor</key>
-				<false/>
-				<key>modsmode</key>
-				<integer>0</integer>
-				<key>relatedAppsMode</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.hotkey</string>
-			<key>uid</key>
-			<string>AEE47B82-D8C0-4DAA-BA7C-3869564E6990</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>autopaste</key>
 				<false/>
 				<key>clipboardtext</key>
@@ -212,6 +225,27 @@ python3 ./queryBookmark.py "$query"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>重建索引完成</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>0EF97BF8-41A7-46B5-9758-E140C8489F85</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -240,9 +274,16 @@ python3 ./queryBookmark.py "$query"</string>
 		<key>0EAC8B81-69B9-4DFF-9585-E20A9C4D9FC3</key>
 		<dict>
 			<key>xpos</key>
-			<real>790</real>
+			<real>795</real>
 			<key>ypos</key>
 			<real>115</real>
+		</dict>
+		<key>0EF97BF8-41A7-46B5-9758-E140C8489F85</key>
+		<dict>
+			<key>xpos</key>
+			<real>795</real>
+			<key>ypos</key>
+			<real>435</real>
 		</dict>
 		<key>1911C41B-54CE-4405-AD37-E6D85EC3B30F</key>
 		<dict>
@@ -256,14 +297,14 @@ python3 ./queryBookmark.py "$query"</string>
 			<key>xpos</key>
 			<real>275</real>
 			<key>ypos</key>
-			<real>370</real>
+			<real>435</real>
 		</dict>
 		<key>680CEC3D-B7D6-4694-9218-7B48E5C5D875</key>
 		<dict>
 			<key>xpos</key>
-			<real>490</real>
+			<real>485</real>
 			<key>ypos</key>
-			<real>370</real>
+			<real>435</real>
 		</dict>
 		<key>AE5688DE-23C5-4559-9C9C-1E822A247891</key>
 		<dict>
