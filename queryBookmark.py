@@ -37,6 +37,8 @@ def query_data(name_keyword, url_keyword):
             # 查询path下name为keyword或url为keyword的数据
             query_data_sql = f"SELECT * FROM bookmark WHERE (path LIKE '%{path}%' OR pathpinyin LIKE '%{path}%') AND (name LIKE '%{keword}%' OR url LIKE '%{keword}%' OR pinyin LIKE '%{keword}%') order by adddate desc"
         else:
+            # 去掉name_keyword的空格
+            name_keyword = name_keyword.replace(" ", "")
             query_data_sql = f"SELECT * FROM bookmark WHERE path LIKE '%{name_keyword}%' OR pathpinyin LIKE '%{name_keyword}%' order by adddate desc"
     rows = db.execute(query_data_sql).fetchall()
     db.close()
