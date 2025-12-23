@@ -9,7 +9,7 @@ from define import *
 def query_data(name_keyword, url_keyword):
     db_path = os.path.join(kBookmarkPath, kDataBaseName)
     db_path = os.path.expanduser(db_path)
-    db = sqlite3.connect(db_path)
+    db = sqlite3.connect(db_path, uri=True)
 
     keywords = [k.strip() for k in name_keyword.split()] if name_keyword else []
     keywords = [k for k in keywords if k]  # 移除空字符串
