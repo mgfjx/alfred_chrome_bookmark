@@ -19,7 +19,7 @@ def query_data(name_keyword, url_keyword):
     for k in keywords:
         # 转义单引号防止 SQL 注入（简易处理，建议使用参数化查询）
         safe_k = k.replace("'", "''")
-        cond = f"(name LIKE '%{safe_k}%' OR path LIKE '%{safe_k}%' OR pinyin LIKE '%{safe_k}%')"
+        cond = f"(name LIKE '%{safe_k}%' OR path LIKE '%{safe_k}%' OR allpinyin LIKE '%{safe_k}%')"
         name_conditions.append(cond)
 
     # 3. 组合 name_conditions（AND 连接）
@@ -31,11 +31,16 @@ def query_data(name_keyword, url_keyword):
         name_keyword = name_keyword[1:]
         # 使用空格分隔
         keywords = name_keyword.split(" ")
-        if len(keywords) > 1 and len(keywords[1]) > 0:
+        if len(keywords) == 1: #只搜文件夹内的数据
+            query_data_sql = f"SELECT * FROM bookmark WHERE path LIKE '%{name_keyword}%' OR pathpinyin LIKE '%{name_keyword}%' order by adddate desc"
+        elif len(keywords) > 1:
             path = keywords[0]
             keword = keywords[1]
-            # 查询path下name为keyword或url为keyword的数据
-            query_data_sql = f"SELECT * FROM bookmark WHERE (path LIKE '%{path}%' OR pathpinyin LIKE '%{path}%') AND (name LIKE '%{keword}%' OR url LIKE '%{keword}%' OR pinyin LIKE '%{keword}%') order by adddate desc"
+            if len(keword) > 0:
+                # 查询path下name为keyword或url为keyword的数据
+                query_data_sql = f"SELECT * FROM bookmark WHERE (path LIKE '%{path}%' OR pathpinyin LIKE '%{path}%') AND (name LIKE '%{keword}%' OR url LIKE '%{keword}%' OR namepinyin LIKE '%{keword}%') order by adddate desc"
+            else:
+                query_data_sql = f"SELECT * FROM bookmark WHERE path LIKE '%{path}%' OR pathpinyin LIKE '%{path}%' order by adddate desc"
         else:
             # 去掉name_keyword的空格
             name_keyword = name_keyword.replace(" ", "")
@@ -49,7 +54,7 @@ def getAlfredItems(keywork):
     # 构建Alfred结果列表
     alfred_items = []
     for row in result:
-        title, path, url, adddate, pinyin, pathpinyin = row
+        title, path, url, adddate, allpinyin, namepinyin, pathpinyin = row
         title = f'[{path}]{title}'
         subtitle = f'[收藏时间:{adddate}]{url}'
         alfred_item = {

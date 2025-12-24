@@ -54,10 +54,11 @@ def process_bookmark_node(node, path=''):
             bookmark_list.extend(process_bookmark_node(child, current_path))
     else:
         url = node.get('url', "")
-        pinyin_str = path+name
-        name_pinyin = ''.join(lazy_pinyin(pinyin_str))
+        all_pinyin_str = path+name
+        name_pinyin = ''.join(lazy_pinyin(name))
         path_pinyin = ''.join(lazy_pinyin(path))
-        bookmark_list.append({'name': name, 'url': url, 'path': path, 'adddate': adddate, 'pinyin': name_pinyin, 'pathpinyin': path_pinyin})
+        all_pinyin = ''.join(lazy_pinyin(all_pinyin_str))
+        bookmark_list.append({'name': name, 'url': url, 'path': path, 'adddate': adddate, 'allpinyin': all_pinyin, 'namepinyin': name_pinyin, 'pathpinyin': path_pinyin})
 
     return bookmark_list
 
@@ -73,13 +74,13 @@ def create_database(bookmark_list):
         os.remove(db_path)
 
     db = sqlite3.connect(db_path)
-    create_table_sql = 'CREATE TABLE IF NOT EXISTS bookmark (name TEXT, path TEXT, url TEXT, adddate TEXT, pinyin TEXT, pathpinyin TEXT)'
-    insert_data_sql = 'INSERT INTO bookmark (name, path, url, adddate, pinyin, pathpinyin) VALUES (?, ?, ?, ?, ?, ?)'
+    create_table_sql = 'CREATE TABLE IF NOT EXISTS bookmark (name TEXT, path TEXT, url TEXT, adddate TEXT, allpinyin TEXT, namepinyin TEXT, pathpinyin TEXT)'
+    insert_data_sql = 'INSERT INTO bookmark (name, path, url, adddate, allpinyin, namepinyin, pathpinyin) VALUES (?, ?, ?, ?, ?, ?, ?)'
 
     # Create table
     db.execute(create_table_sql)
     for row in bookmark_list:
-        data = (row['name'], row['path'], row['url'], row['adddate'], row['pinyin'], row['pathpinyin'])
+        data = (row['name'], row['path'], row['url'], row['adddate'], row['allpinyin'], row['namepinyin'], row['pathpinyin'])
         db.execute(insert_data_sql, data)
 
     db.commit()
