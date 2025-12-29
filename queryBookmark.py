@@ -55,7 +55,6 @@ def query_data(name_keyword, url_keyword):
             keyword1 = keywords[0]
             keyword2 = keywords[1]
             if len(keyword2) > 0:
-                # 查询path下name为keyword或url为keyword的数据
                 query_data_sql = f"SELECT * FROM bookmark WHERE (name LIKE '%{keyword1}%' AND name LIKE '%{keyword2}%') OR (namepinyin LIKE '%{keyword1}%' AND namepinyin LIKE '%{keyword2}%') order by adddate desc"
             else:
                 query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{keyword1}%' OR namepinyin LIKE '%{keyword1}%' order by adddate desc"
@@ -73,7 +72,6 @@ def query_data(name_keyword, url_keyword):
             keyword1 = keywords[0]
             keyword2 = keywords[1]
             if len(keyword2) > 0:
-                # 查询path下name为keyword或url为keyword的数据
                 query_data_sql = f"SELECT * FROM bookmark WHERE (url LIKE '%{keyword1}%' AND url LIKE '%{keyword2}%') order by adddate desc"
             else:
                 query_data_sql = f"SELECT * FROM bookmark WHERE url LIKE '%{keyword1}%' order by adddate desc"
