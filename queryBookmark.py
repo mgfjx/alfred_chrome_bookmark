@@ -45,6 +45,42 @@ def query_data(name_keyword, url_keyword):
             # 去掉name_keyword的空格
             name_keyword = name_keyword.replace(" ", "")
             query_data_sql = f"SELECT * FROM bookmark WHERE path LIKE '%{name_keyword}%' OR pathpinyin LIKE '%{name_keyword}%' order by adddate desc"
+    elif name_keyword.startswith("%"): # 只查询name为name_keyword的数据
+        name_keyword = name_keyword[1:]
+        # 使用空格分隔
+        keywords = name_keyword.split(" ")
+        if len(keywords) == 1: #只搜文件夹内的数据
+            query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{name_keyword}%' OR namepinyin LIKE '%{name_keyword}%' order by adddate desc"
+        elif len(keywords) > 1:
+            keyword1 = keywords[0]
+            keyword2 = keywords[1]
+            if len(keyword2) > 0:
+                # 查询path下name为keyword或url为keyword的数据
+                query_data_sql = f"SELECT * FROM bookmark WHERE (name LIKE '%{keyword1}%' AND name LIKE '%{keyword2}%') OR (namepinyin LIKE '%{keyword1}%' AND namepinyin LIKE '%{keyword2}%') order by adddate desc"
+            else:
+                query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{keyword1}%' OR namepinyin LIKE '%{keyword1}%' order by adddate desc"
+        else:
+            # 去掉name_keyword的空格
+            name_keyword = name_keyword.replace(" ", "")
+            query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{name_keyword}%' OR namepinyin LIKE '%{name_keyword}%' order by adddate desc"
+    elif name_keyword.startswith("@"): # 只查询url为name_keyword的数据
+        name_keyword = name_keyword[1:]
+        # 使用空格分隔
+        keywords = name_keyword.split(" ")
+        if len(keywords) == 1: #只搜文件夹内的数据
+            query_data_sql = f"SELECT * FROM bookmark WHERE url LIKE '%{name_keyword}%' order by adddate desc"
+        elif len(keywords) > 1:
+            keyword1 = keywords[0]
+            keyword2 = keywords[1]
+            if len(keyword2) > 0:
+                # 查询path下name为keyword或url为keyword的数据
+                query_data_sql = f"SELECT * FROM bookmark WHERE (url LIKE '%{keyword1}%' AND url LIKE '%{keyword2}%') order by adddate desc"
+            else:
+                query_data_sql = f"SELECT * FROM bookmark WHERE url LIKE '%{keyword1}%' order by adddate desc"
+        else:
+            # 去掉name_keyword的空格
+            name_keyword = name_keyword.replace(" ", "")
+            query_data_sql = f"SELECT * FROM bookmark WHERE url LIKE '%{name_keyword}%' order by adddate desc"
     rows = db.execute(query_data_sql).fetchall()
     db.close()
     return rows
