@@ -45,7 +45,7 @@ def query_data(name_keyword, url_keyword):
             # 去掉name_keyword的空格
             name_keyword = name_keyword.replace(" ", "")
             query_data_sql = f"SELECT * FROM bookmark WHERE path LIKE '%{name_keyword}%' OR pathpinyin LIKE '%{name_keyword}%' order by adddate desc"
-    elif name_keyword.startswith("%"): # 只查询name为name_keyword的数据
+    elif name_keyword.startswith("@"): # 只查询name为name_keyword的数据
         name_keyword = name_keyword[1:]
         # 使用空格分隔
         keywords = name_keyword.split(" ")
@@ -62,7 +62,7 @@ def query_data(name_keyword, url_keyword):
             # 去掉name_keyword的空格
             name_keyword = name_keyword.replace(" ", "")
             query_data_sql = f"SELECT * FROM bookmark WHERE name LIKE '%{name_keyword}%' OR namepinyin LIKE '%{name_keyword}%' order by adddate desc"
-    elif name_keyword.startswith("@"): # 只查询url为name_keyword的数据
+    elif name_keyword.startswith("%"): # 只查询url为name_keyword的数据
         name_keyword = name_keyword[1:]
         # 使用空格分隔
         keywords = name_keyword.split(" ")
