@@ -54,7 +54,7 @@ def process_bookmark_node(node, path=''):
             bookmark_list.extend(process_bookmark_node(child, current_path))
     else:
         url = node.get('url', "")
-        all_pinyin_str = path+name
+        all_pinyin_str = path+name+url
         name_pinyin = ''.join(lazy_pinyin(name))
         path_pinyin = ''.join(lazy_pinyin(path))
         all_pinyin = ''.join(lazy_pinyin(all_pinyin_str))
