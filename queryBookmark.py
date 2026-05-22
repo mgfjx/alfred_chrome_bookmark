@@ -84,6 +84,13 @@ def query_data(name_keyword, url_keyword):
     return rows
 
 def getAlfredItems(keywork):
+    db_path = os.path.expanduser(os.path.join(kBookmarkPath, kDataBaseName))
+    if not os.path.exists(db_path):
+        print(json.dumps({'items': [{
+            'title': "书签数据库不存在，请先加载书签后再使用",
+            'subtitle': "按Option+空格，输入reloadbookmark加载书签"
+        }]}))
+        return
     result = query_data(keywork, keywork)
     # 构建Alfred结果列表
     alfred_items = []

@@ -283,7 +283,7 @@ python3 ./queryBookmark.py "$query"</string>
 			<key>xpos</key>
 			<real>795</real>
 			<key>ypos</key>
-			<real>435</real>
+			<real>395</real>
 		</dict>
 		<key>1911C41B-54CE-4405-AD37-E6D85EC3B30F</key>
 		<dict>
@@ -297,14 +297,14 @@ python3 ./queryBookmark.py "$query"</string>
 			<key>xpos</key>
 			<real>275</real>
 			<key>ypos</key>
-			<real>435</real>
+			<real>395</real>
 		</dict>
 		<key>680CEC3D-B7D6-4694-9218-7B48E5C5D875</key>
 		<dict>
 			<key>xpos</key>
 			<real>485</real>
 			<key>ypos</key>
-			<real>435</real>
+			<real>395</real>
 		</dict>
 		<key>AE5688DE-23C5-4559-9C9C-1E822A247891</key>
 		<dict>
